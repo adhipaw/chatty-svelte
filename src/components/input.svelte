@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { INPUTTYPE } from './input';
+	import { fly, fade } from 'svelte/transition';
+	import { backOut } from 'svelte/easing';
+
 	export let required: boolean | undefined = undefined;
 	export let name: string;
 	export let type: 'text' | 'number' | 'password' | 'email';
@@ -12,12 +14,9 @@
 	let active = false;
 	let isValid: boolean | undefined = undefined;
 
-	function getHelperClass(isValid: boolean | undefined, active: boolean) {
-		let className = 'input-out';
-		if (!helperText || !active) return className;
-		className = 'input-in ';
-		if (typeof isValid === 'undefined') return (className += 'text-white/60 text-xs mb-4');
-		return (className += isValid ? 'text-xs mb-4 text-green-600' : 'text-xs mb-4 text-red-600');
+	function getHelperClass(isValid: boolean | undefined) {
+		if (typeof isValid === 'undefined') return 'text-white/60 text-xs mb-4';
+		return isValid ? 'text-xs mb-2 text-green-600' : 'text-xs mb-2 text-red-600';
 	}
 
 	function getHelperMessage(isValid: boolean | undefined) {
@@ -58,30 +57,20 @@
 		: ' bg-black/50 text-white w-full text-base p-2 outline-none rounded-sm mb-4'}
 />
 
-<p class={getHelperClass(isValid, active)}>{getHelperMessage(isValid)}</p>
-
-<style>
-	.input-in {
-		animation-name: input-in;
-		animation-duration: 0.5s;
-		display: block;
-	}
-	.input-out {
-		animation-name: input-in;
-		animation-duration: 0.5s;
-		display: none;
-		animation-direction: reverse;
-	}
-	@keyframes input-in {
-		0% {
-			opacity: 0;
-
-			transform: translateY(10px);
-		}
-		100% {
-			opacity: 1;
-
-			transform: translateY(0px);
-		}
-	}
-</style>
+{#if helperText && active}
+	<p
+		in:fly={{
+			y: 5,
+			opacity: 0,
+			easing: backOut
+		}}
+		out:fly={{
+			y: 5,
+			opacity: 0,
+			easing: backOut
+		}}
+		class={getHelperClass(isValid)}
+	>
+		{getHelperMessage(isValid)}
+	</p>
+{/if}
