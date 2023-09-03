@@ -2,7 +2,14 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			backgroundColor: {
+				'primary-dark': '#222427'
+			},
+			fontFamily: {
+				display: '"gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif'
+			}
+		}
 	},
 	plugins: []
 };
