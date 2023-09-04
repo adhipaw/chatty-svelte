@@ -8,8 +8,15 @@
 	export let id: string | undefined = undefined;
 	export let label: string | undefined = undefined;
 	export let helperText: string | undefined = undefined;
+	export let ref: HTMLElement | undefined = undefined;
+	export let minlength: number | undefined = undefined;
+	export let maxlength: number | undefined = undefined;
 	export let validator:
-		| { onSuccesText: string; onErrorText: string; fallback: (value: string) => boolean }
+		| {
+				onSuccesText: string;
+				onErrorText: string;
+				fallback: (value: string) => PromiseLike<boolean | undefined>;
+		  }
 		| undefined = undefined;
 	let active = false;
 	let isValid: boolean | undefined = undefined;
@@ -34,20 +41,25 @@
 {/if}
 
 <input
+	{minlength}
+	{maxlength}
+	bind:this={ref}
 	{type}
 	id={id ? id : name}
 	{required}
-	name="email"
+	{name}
 	on:focusin={() => {
 		active = true;
 	}}
 	on:focusout={() => {
 		active = false;
 	}}
-	on:change={(e) => {
+	on:change={async (e) => {
 		if (e.currentTarget.value != '') {
 			if (validator) {
-				return (isValid = validator.fallback(e.currentTarget.value));
+				$: isValid = await validator.fallback(e.currentTarget.value);
+				console.log(isValid);
+				return;
 			}
 		}
 		return (isValid = undefined);

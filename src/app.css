@@ -11,4 +11,20 @@
 		scrollbar-width: none; /* Firefox */
 		--font-display: '';
 	}
+	input[type='radio'],
+	input[type='checkbox'] {
+		all: unset;
+		@apply bg-black/20 w-5 h-5 rounded-md border-[.1px] border-white border-solid inline-block visible;
+	}
+
+	/* input[type='radio']:after {
+		@apply bg-black/20 relative w-5 h-5 top-0 left-0 inline-block visible bg-slate-100;
+	} */
+
+	input[type='radio']:checked:after,
+	input[type='checkbox']:checked:after {
+		@apply relative w-5 h-5 top-0 left-0 rounded-md inline-block visible bg-blue-600;
+		content: '';
+		/* background: url($lib/images/icons/check.png) !important; */
+	}
 }
