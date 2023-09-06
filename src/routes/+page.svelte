@@ -11,7 +11,7 @@
 
 <div class="font-sans antialiased h-screen flex">
 	<!-- Sidebar / channel list -->
-	<Sidebar />
+	
 	<!-- Chat content -->
 	<div class="flex-1 flex flex-col bg-gray-700 overflow-hidden">
 		<!-- Top bar -->

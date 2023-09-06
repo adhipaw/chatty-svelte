@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="bg-gray-900 text-purple-lighter flex-none w-16 p-2 flex flex-col items-center justify-center md:block overflow-y-auto"
+	class="bg-primary-dark text-purple-lighter flex-none w-16 p-2 flex flex-col items-center justify-start overflow-y-auto"
 >
 	<div
 		class="relative cursor-pointer mb-4 border-b border-gray-600 pb-2 flex flex-col items-center justify-center"
@@ -28,7 +28,7 @@
 			class="bg-gray-500 opacity-25 w-11 h-11 flex items-center justify-center text-black text-2xl font-semibold rounded-3xl mb-1 overflow-hidden"
 		>
 			<svg
-				class="fill-current h-10 w-10 block"
+				class="fill-current h-8 w-8 block text-green-400"
 				xmlns="http://www.w3.org/2000/svg"
 				viewBox="0 0 20 20"
 			>

@@ -14,6 +14,9 @@ export default {
 			},
 			fontFamily: {
 				display: '"gg sans","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif'
+			},
+			borderRadius: {
+				primary: '0.3rem'
 			}
 		}
 	},

@@ -7,6 +7,15 @@
 	import { DATES, MONTH, YEARS } from '$lib/static/date_list';
 	import Chackbox from '$lib/components/chackbox.svelte';
 
+	import {
+		createUserWithEmailAndPassword,
+		getAuth,
+		sendEmailVerification,
+		type Auth
+	} from 'firebase/auth';
+	import { onMount } from 'svelte';
+	import getApp from '$lib/firebase';
+
 	let subscribeElement: any;
 
 	async function register(ev: SubmitEvent) {
@@ -19,10 +28,21 @@
 			display_name: formData.get('displayname'),
 			username: formData.get('username'),
 			password: formData.get('password'),
-			bitrh_day: `${formData.get('year')}/${formData.get('month')}/${formData.get('date')}`,
+			birth_day: `${formData.get('year')}/${formData.get('month')}/${formData.get('date')}`,
 			subscribe_news: subscribeElement.checked
 		};
-		const response = await axios.post(API_URL + 'register', data);
+		const response = await axios.post(API_URL + 'user', data);
+		const authd = getAuth(getApp());
+		const userCredential = await createUserWithEmailAndPassword(
+			authd,
+			response.data.email,
+			response.data.password
+		);
+
+		const auth = getAuth();
+
+		if (!auth.currentUser) return;
+		sendEmailVerification(auth.currentUser).then((val) => alert(val));
 	}
 
 	const validateEmail = async (val: string) => {
